@@ -1,0 +1,175 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'registration.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'rejistration.js' %}"></script>
+    <title>Document</title>
+    <style>
+      .ml5 {
+        position: relative;
+        font-weight: 300;
+        font-size: 4.5em;
+        color: #402d2d;
+      }
+      
+      .ml5 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.1em;
+        padding-right: 0.05em;
+        padding-bottom: 0.15em;
+        line-height: 1em;
+      }
+      
+      .ml5 .line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: 3px;
+        width: 100%;
+        background-color: #402d2d;
+        transform-origin: 0.5 0;
+      }
+      
+      .ml5 .ampersand {
+        font-family: Baskerville, "EB Garamond", serif;
+        font-style: italic;
+        font-weight: 400;
+        width: 1em;
+        margin-right: -0.1em;
+        margin-left: -0.1em;
+      }
+      
+      .ml5 .letters {
+        display: inline-block;
+        opacity: 0;
+      }      
+    </style>
+</head>
+<body>
+<div id="banner">
+  <div id="cloud-scroll"></div>
+
+<img src="{% static 'a1.png' %}" width=250px height=150px style="float: left;">
+<img src="{% static 'logo.png' %}" width=250px height=160px style="float: right;">
+<br>
+<h1 class="ml5" style="text-align: center;">
+  <span class="text-wrapper">
+    <span class="line line1"></span>
+    <span class="letters letters-left">ENLACE</span>
+    <span class="letters ampersand">-</span>
+    <span class="letters letters-right">2K20</span>
+    <span class="line line2"></span>
+  </span>
+</h1>
+<br>
+  <div class="container" style="clear: both;">
+    <div class="well" style="background-color: transparent; ">
+      <hr>
+      <form class='box' name="regis" method="post" action="/accounts/registration/">
+        {%csrf_token%}
+        <div class='box-form'>
+          <div class='box-login-tab'></div>
+          <div class='box-login-title'>
+            <div class='i i-login'></div><h2>REGISTRATION</h2>
+          </div>
+          <div class='box-login'>
+            <div class='fieldset-body' id='login_form'>
+              <p class='field'>
+                <label for='user'>First Name:</label>
+                <input type='text' id='user' name='first_name' title='First Name' required/>
+                <span id='valida' class='i i-warning'></span>
+              </p>
+              <p class='field'>
+                <label for='user'>Email Id:</label>
+                <input type='text' id='user' name='email' title='E Mail' required/>
+                <span id='valida' class='i i-close'></span>
+              </p>
+              <p class='field'>
+                <label for='user'>College Name:</label>
+                <input type='text' id='user' name='CollegeName' title='College Name' required/>
+                <span id='valida' class='i i-warning'></span>
+              </p>
+              <p class='field'>
+                <label for='user'>Semester(1-8):</label>
+                <input type='text' id='user' name='Semester' title='Semester' required/>
+                <span id='valida' class='i i-warning'></span>
+              </p>
+              <p class='field'>
+                <label for='user'>Phone Number:</label>
+                <input type='text' id='user' name='PhoneNumber' title='Phone Number' required/>
+                <span id='valida' class='i i-warning'></span>
+              </p>
+              <p class='field'>
+                <label for='user'>Enlace Registration:</label>
+                <select id="seluser" name="EventName" required>
+                  {% for event in events%}
+                  <option value="{{event}}">{{event}}</option>
+                  {%endfor%}
+                </select>
+                <span id='valida' class='i i-warning'></span>
+              </p> 
+              
+                <input type='submit' id='do_login' title='Click To Register' />
+            </div>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+  anime.timeline({loop: true})
+    .add({
+      targets: '.ml5 .line',
+      opacity: [0.5,1],
+      scaleX: [0, 1],
+      easing: "easeInOutExpo",
+      duration: 700
+    }).add({
+      targets: '.ml5 .line',
+      duration: 600,
+      easing: "easeOutExpo",
+      translateY: (el, i) => (-0.625 + 0.625*2*i) + "em"
+    }).add({
+      targets: '.ml5 .ampersand',
+      opacity: [0,1],
+      scaleY: [0.5, 1],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=600'
+    }).add({
+      targets: '.ml5 .letters-left',
+      opacity: [0,1],
+      translateX: ["0.5em", 0],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=300'
+    }).add({
+      targets: '.ml5 .letters-right',
+      opacity: [0,1],
+      translateX: ["-0.5em", 0],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=600'
+    }).add({
+      targets: '.ml5',
+      opacity: 0,
+      duration: 1000,
+      easing: "easeOutExpo",
+      delay: 1000
+    });
+</script>
+
+</html>

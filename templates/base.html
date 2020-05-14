@@ -1,0 +1,123 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'base.css' %}" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <title>Cultural Fest | IIITK</title>
+</head>
+<body>
+    <div class="jumbotron text-center" id="header">
+        <img src="{% static 'a1.png' %}" height=150px widht=100px style="float: left;">
+        <img src="{% static 'logo.png' %}" height=150px width=200px style="float: right;"> 
+        <h1 class="ml5" style="text-align: center;">
+          <span class="text-wrapper">
+            <span class="line line1"></span>
+            <span class="letters letters-left">ENLACE</span>
+            <span class="letters ampersand">-</span>
+            <span class="letters letters-right">2K20</span>
+            <span class="line line2"></span>
+          </span>
+        </h1>
+    </div>
+    <br>
+    <br>
+    <!--
+      <div class="timeline">
+      <div class="container left">
+        <div class="content">
+          <h2>2017</h2>
+          <p>Lorem ipsum..</p>
+        </div>
+      </div>
+      <div class="container right">
+        <div class="content">
+          <h2>2016</h2>
+          <p>Lorem ipsum..</p>
+        </div>
+      </div>
+    </div>
+
+    -->
+<div class="timeline">
+  {%for event in events%}
+    {% if forloop.counter|divisibleby:2 %}
+      <div class="container right">
+        <div class="content">  
+          <div class="card myanim">
+            <img class="card-img-top" src="{{event.Event_Pics.url}}" height=200px width=150px alt="Card image">
+            <div class="card-body">
+                  <h4 class="card-title">{{event.name}}</h4>
+                  <p class="card-text">{{event.desc}}</p>
+                  <button onclick="window.location.assign('accounts/registration')" class="btn btn-primary stretched-link chngclr">Click to Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%else%}
+    <div class="container left">
+      <div class="content">  
+        <div class="card myanim" >
+          <img class="card-img-top" src="{{event.Event_Pics.url}}" height=200px width=150px alt="Card image">
+          <div class="card-body">
+            <h4 class="card-title">{{event.name}}</h4>
+            <p class="card-text">{{event.desc}}</p>
+            <button onclick="window.location.assign('accounts/registration')" class="btn btn-primary stretched-link chngclr">Click to Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+  {%endfor%}
+</div>
+</body>
+<script>
+  anime.timeline({loop: true})
+    .add({
+      targets: '.ml5 .line',
+      opacity: [0.5,1],
+      scaleX: [0, 1],
+      easing: "easeInOutExpo",
+      duration: 700
+    }).add({
+      targets: '.ml5 .line',
+      duration: 600,
+      easing: "easeOutExpo",
+      translateY: (el, i) => (-0.625 + 0.625*2*i) + "em"
+    }).add({
+      targets: '.ml5 .ampersand',
+      opacity: [0,1],
+      scaleY: [0.5, 1],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=600'
+    }).add({
+      targets: '.ml5 .letters-left',
+      opacity: [0,1],
+      translateX: ["0.5em", 0],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=300'
+    }).add({
+      targets: '.ml5 .letters-right',
+      opacity: [0,1],
+      translateX: ["-0.5em", 0],
+      easing: "easeOutExpo",
+      duration: 600,
+      offset: '-=600'
+    }).add({
+      targets: '.ml5',
+      opacity: 0,
+      duration: 1000,
+      easing: "easeOutExpo",
+      delay: 1000
+    });
+</script>
+</html>
